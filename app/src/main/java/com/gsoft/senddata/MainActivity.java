@@ -129,12 +129,13 @@ public class MainActivity extends AppCompatActivity {
 
                     // Send data over the socket
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                    dataOutputStream.writeUTF("Hello, Server!");
+                    String data = "Hello, Server!";
+                    dataOutputStream.writeUTF(data);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvMessages.setText("Connected\n");
+                            tvMessages.setText("Connected\n"+data);
                         }
                     });
                     new Thread(new Thread2()).start();
