@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -94,11 +96,15 @@ public class MainActivityClient extends AppCompatActivity {
                 output = new PrintWriter(socket.getOutputStream());
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+                // Received data over the socket
+                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+                String data = dataInputStream.readUTF();
+
                 runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
-                        tvMessages.setText("Connected\n");
+                        tvMessages.setText("Connected\n"+data);
                     }
                 });
                 new Thread(new Thread2()).start();
